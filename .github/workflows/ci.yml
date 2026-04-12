@@ -7,13 +7,9 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Import cpp-container
-        uses: actions/checkout@v5
-        with:
-          repository: ChicoState/cpp-container
       - name: Checkout code
         uses: actions/checkout@v5
       - name: Build container image
-        run: docker build -t gtest .
+        run: docker build -t kbuffardi/cpp-container .
       - name: Test in container
-        run: docker run -t gtest
+        run: docker run -t kbuffardi/cpp-container
