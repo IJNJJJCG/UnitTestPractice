@@ -37,12 +37,9 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
-CXXFLAGS = -Wall -I./include --coverage
-LDFLAGS = -coverage
-
 # Builds the class and associated tests
 Password.o : Password.cpp Password.h $(GTEST_HEADERS)
-	g++ -c Password.cpp -I./include -o Password.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Password.cpp
 
 PasswordTest.o : PasswordTest.cpp \
                      Password.h $(GTEST_HEADERS)
@@ -50,6 +47,3 @@ PasswordTest.o : PasswordTest.cpp \
 
 PasswordTest : Password.o PasswordTest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-
-test_executable: Password.o
-	g++ $(LDFLAGS) Password.o -o test_executable
